@@ -7,6 +7,7 @@ bot = telebot.TeleBot('6960208989:AAHlBJpA0-5xwJIWJv5tamJjofDlyRwfgWs')
 weather_API = 'd26cd5944a376e41b3b56cab18208c18'
 edamam_key = '4e1ae2986b7c7d4c71f2db5ef1e37ba0'
 edamam_id = '58ee370c'
+fusion_brain_api = '6F1905C8483E1D40000A863BECDDB0E7'
 
 weather_descriptions = {
     "clear sky": "Ясное небо",
@@ -55,7 +56,27 @@ def weather_city(message):
         weather_description_ru = weather_descriptions.get(weather_description_en, weather_description_en)
         caption = (f'Погода сейчас: {temp_grad}°C. Ощущается как {temp_osh}°C. {weather_description_ru}')
 
-        image = 'cloudy.png' if temp_grad > 25.0 else 'rainy.png'
+        image = ''
+
+        if weather_description_ru == 'Ясное небо':
+            image = 'cloudy.png'
+        if weather_description_ru == 'Малооблачно':
+            image = 'cloudy.png'
+        if weather_description_ru == 'Рассеянные облака':
+            image = 'rass.png'
+        if weather_description_ru == 'Облачно с прояснениями':
+            image = 'oblach_s_proyas.png'
+        if weather_description_ru == 'Ливень':
+            image = 'Liven.png'
+        if weather_description_ru == 'Дождь':
+            image = 'rainy.png'
+        if weather_description_ru == 'Гроза':
+            image = 'Groza.png'
+        if weather_description_ru == 'Снег':
+            image = 'Snowy.png'
+        if weather_description_ru == 'Туман':
+            image = 'Foggy.png'
+
         file = open('./' + image, 'rb')
         bot.send_photo(message.chat.id, file, caption=caption)
     else:
